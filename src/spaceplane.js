@@ -80,7 +80,7 @@ export class Spaceplane {
 
   surroundRun(diff, timer=1000) {
     // XXX 这个实现不太好
-    if (diff > 5) {
+    if (diff > 3) {
       this.surroundRun(diff/2, timer/2)
       setTimeout(() => {
         this.surroundRun(diff/2, timer/2)
