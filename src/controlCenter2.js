@@ -17,7 +17,6 @@ var powerTable = {
     name: '前进号',
     speed: 30,
     power: 5,
-    default: true,
   },
   2: {
     name: '奔腾号',
@@ -38,6 +37,7 @@ var powerTable = {
     name: '光速号',
     speed: 500,
     power: 12,
+    default: true,
   },
   6: {
     name: '曲率驱动号',
