@@ -29,6 +29,21 @@ var powerTable = {
     speed: 80,
     power: 9,
   },
+  4: {
+    name: '核动力号',
+    speed: 200,
+    power: 10,
+  },
+  5: {
+    name: '光速号',
+    speed: 500,
+    power: 12,
+  },
+  6: {
+    name: '曲率驱动号',
+    speed: 1000,
+    power: 14,
+  },
 }
 
 var energyTable = {
@@ -150,8 +165,9 @@ export function center(planet) {
         <label>
           <input type="radio" name="powerType" ${o.default ? 'checked' : ''} value="${id}"/>
           ${o.name} (速率${o.speed}px/s, 能耗${o.power}%/s)
+          <br/>
         </label>
-      `)}
+      `).join('')}
     </div>
     <div>能源系统:</div>
     <div>
@@ -159,8 +175,9 @@ export function center(planet) {
         <label>
           <input type="radio" name="energyType" ${o.default ? 'checked' : ''} value="${id}"/>
           ${o.name} (补充能源速度${o.power}%/s)
+          <br/>
         </label>
-      `)}
+      `).join('')}
     </div>
   `)
 
@@ -171,7 +188,7 @@ export function center(planet) {
         type: 0,
         id: id,
         powerType: parseInt($('.creater').find('[name="powerType"]:checked').val(), 10),
-        energyType: parseInt($('.creater').find('[name="powerType"]:checked').val(), 10),
+        energyType: parseInt($('.creater').find('[name="energyType"]:checked').val(), 10),
       })
       $ctrlList.find(`[data-id="${id}"]`).show()
     }
