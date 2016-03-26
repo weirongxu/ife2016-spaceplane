@@ -54,28 +54,21 @@
 
 	var _controlCenter = __webpack_require__(10);
 
-	var center = _interopRequireWildcard(_controlCenter);
-
-	var _jquery = __webpack_require__(6);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	var _controlCenter2 = __webpack_require__(14);
 
 	// 创建场景
-
-	// import {center1 as center} from './controlCenter'
 	var canvas = new _canvas.Canvas(document.getElementById('canvas'));
 	// 新建星球
-	var planet = new _sprite.PlanetSprite(50);
+	var planet = new _sprite.PlanetSprite(100);
 	planet.moveTo(canvas.width / 2, canvas.height / 2); // 星球居中
 	canvas.append(planet);
 
 	// 新建指挥中心在新球上
-	var hash = location.hash.replace('#', '') || 'center1';
-	center[hash](planet);
+	if (location.hash.replace('#', '') === 'center1') {
+	  (0, _controlCenter.center)(planet);
+	} else {
+	  (0, _controlCenter2.center)(planet);
+	}
 
 /***/ },
 /* 1 */
@@ -112,7 +105,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body {\n  width: 100%;\n  height: 100%; }\n\nbody::after {\n  content: ' ';\n  display: table;\n  clear: both; }\n\nbody {\n  margin: 0; }\n\n#canvas {\n  width: 500px;\n  height: 500px;\n  background-color: black;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none; }\n  #canvas div {\n    box-sizing: border-box; }\n\n.control-panel {\n  border: 1px solid gray;\n  padding: 10px;\n  margin: 10px 0; }\n", ""]);
+	exports.push([module.id, "html, body {\n  width: 100%;\n  height: 100%; }\n\n.row::after, body::after {\n  content: ' ';\n  display: table;\n  clear: both; }\n\n.pull-left {\n  float: left; }\n\n.pull-right {\n  float: right; }\n\nbody {\n  margin: 0; }\n\n#canvas {\n  width: 500px;\n  height: 500px;\n  background-color: black;\n  position: relative;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none; }\n  #canvas div {\n    box-sizing: border-box; }\n\n.creater, .spaceplane-list {\n  border: 1px solid gray;\n  padding: 10px;\n  margin: 0; }\n\n.spaceplane-list ul {\n  list-style-type: none;\n  padding: 0; }\n  .spaceplane-list ul li {\n    display: none; }\n\n.data-table {\n  display: none;\n  border-collapse: collapse; }\n  .data-table thead {\n    background-color: #BBB; }\n  .data-table tbody td {\n    border: 1px solid #BBB; }\n", ""]);
 
 	// exports
 
@@ -10347,15 +10340,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.ShadowSprite = exports.SpaceplaneSprite = exports.PlanetSprite = exports.Sprite = undefined;
+	exports.SpaceplaneSprite = exports.PlanetSprite = exports.Sprite = undefined;
 
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _utils = __webpack_require__(8);
-
-	var _canvas = __webpack_require__(5);
 
 	var _jquery = __webpack_require__(6);
 
@@ -10465,7 +10456,7 @@
 	    value: function transform(name, value) {
 	      this._transform[name] = value;
 	      var transformCss = [];
-	      for (var name in this._transform) {
+	      for (name in this._transform) {
 	        transformCss.push(name + '(' + this._transform[name] + ')');
 	      }
 	      this.css('transform', transformCss.join(' '));
@@ -10558,7 +10549,7 @@
 
 
 	    _this3.name = name;
-	    _this3.setPower(1);
+	    _this3.setPower(100);
 	    return _this3;
 	  }
 
@@ -10567,7 +10558,7 @@
 	    value: function render() {
 	      var _this4 = this;
 
-	      _get(Object.getPrototypeOf(SpaceplaneSprite.prototype), 'render', this).call(this).size(80, 30).css({
+	      _get(Object.getPrototypeOf(SpaceplaneSprite.prototype), 'render', this).call(this).size(70, 25).css({
 	        borderRadius: '20px',
 	        overflow: 'hidden',
 	        backgroundColor: 'gray'
@@ -10579,17 +10570,17 @@
 	        height: '100%',
 	        lineHeight: this.height + 'px',
 	        textAlign: 'center',
-	        fontSize: '13px',
+	        fontSize: '12px',
 	        fontWeight: 'bold',
 	        zIndex: 2,
 	        padding: '0 5px',
 	        borderRadius: '40px',
 	        borderRight: '8px solid blue'
-	      }).text(this.name + '-' + (this._power * 100).toFixed() + '%').appendTo(this);
+	      }).text(this.name + '-' + this._power.toFixed() + '%').appendTo(this);
 
 	      // 监控能量变化
 	      this.on('update.power', function () {
-	        _this4.hint.text(_this4.name + '-' + (_this4._power * 100).toFixed() + '%');
+	        _this4.hint.text(_this4.name + '-' + _this4._power.toFixed() + '%');
 	      });
 
 	      return this;
@@ -10610,37 +10601,6 @@
 	  return SpaceplaneSprite;
 	}(Sprite);
 
-	var ShadowSprite = exports.ShadowSprite = function (_SpaceplaneSprite) {
-	  _inherits(ShadowSprite, _SpaceplaneSprite);
-
-	  function ShadowSprite(spaceplane) {
-	    _classCallCheck(this, ShadowSprite);
-
-	    var _this5 = _possibleConstructorReturn(this, Object.getPrototypeOf(ShadowSprite).call(this, spaceplane.name));
-
-	    _this5.from = spaceplane;
-	    return _this5;
-	  }
-
-	  _createClass(ShadowSprite, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this6 = this;
-
-	      _get(Object.getPrototypeOf(ShadowSprite.prototype), 'render', this).call(this);
-	      this.moveTo(this.from.x, this.from.y, this.from.rotate).css('opacity', 0.4).css({
-	        opacity: 0.1
-	      }).axisCenter();
-
-	      setTimeout(function () {
-	        _this6.remove();
-	      }, 400);
-	    }
-	  }]);
-
-	  return ShadowSprite;
-	}(SpaceplaneSprite);
-
 /***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
@@ -10660,6 +10620,7 @@
 
 	exports.random = random;
 	exports.log = log;
+	exports.nextTick = nextTick;
 
 	var _eventemitter = __webpack_require__(9);
 
@@ -10714,7 +10675,20 @@
 	function log(content, msg) {
 	  var color = arguments.length <= 2 || arguments[2] === undefined ? 'black' : arguments[2];
 
-	  console.log('%c' + content + ', ' + JSON.stringify(msg), 'color: ' + color);
+	  /*eslint no-console: 0 */
+	  var msgLog;
+	  if ((typeof msg === 'undefined' ? 'undefined' : _typeof(msg)) === 'object') {
+	    msgLog = JSON.stringify(msg);
+	  } else if (typeof msg === 'number') {
+	    msgLog = msg.toString(2);
+	  }
+	  console.log('%c' + content + ', ' + msgLog, 'color: ' + color);
+	}
+
+	function nextTick(fn) {
+	  setTimeout(function () {
+	    fn();
+	  }, 0);
 	}
 
 /***/ },
@@ -11424,8 +11398,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.center1 = center1;
-	exports.center2 = center2;
+	exports.center = center;
 
 	var _medium = __webpack_require__(11);
 
@@ -11444,154 +11417,58 @@
 	// 飞船编号
 	var spaceplaneList = [1, 2, 3, 4];
 
-	// 发射中心1
-	function launchCenter1(planet, accepter) {
+	var $ctrlList = (0, _jquery2.default)('.spaceplane-list');
+	$ctrlList.html('\n  <ul>\n    ' + spaceplaneList.map(function (id) {
+	  return '\n      <li data-id="' + id + '">\n        对' + id + '号下达命令\n        <button data-command="run">开始飞行</button>\n        <button data-command="stop">停止飞行</button>\n        <button data-command="destory">销毁</button>\n      </li>\n    ';
+	}).join('') + '\n  </ul>\n');
+
+	function launchCenter(planet, accepter) {
 	  accepter.accept(function (msg) {
 	    if (msg.command == 'launch') {
 	      (0, _utils.log)('发射中心接受命令', msg, 'blue');
 	      var id = msg.id;
-	      var spaceplane = new _spaceplane.Spaceplane(id, accepter);
-	      spaceplane.launch(planet, id * 50);
+	      var spaceplane = new _spaceplane.Spaceplane(id, { accepter: accepter });
+	      spaceplane.launch(planet, id * 50 + 30);
 	    }
 	  });
 	}
 
-	// 指挥中心 第一阶段
-	function center1(planet) {
+	function center(planet) {
 	  // 新建介质
 	  var medium = new _medium.Mediator();
 	  var sender = new _message.Sender(medium);
 	  var accepter = new _message.Accepter(medium);
 
-	  // 新建发射中心
-	  launchCenter1(planet, accepter);
-
 	  // 控制面板
-	  (0, _jquery2.default)('.control-center').html('\n    <button class="create">新的飞船起飞</button>\n    <div class="control-list"></div>\n  ');
+	  (0, _jquery2.default)('.creater').html('\n    <button class="create">新的飞船起飞</button>\n  ');
 
-	  (0, _jquery2.default)('.control-center .create').on('click', function () {
+	  // 新建发射中心
+	  launchCenter(planet, accepter);
+
+	  // 绑定事件
+	  (0, _jquery2.default)('.creater .create').on('click', function () {
 	    if (spaceplaneList.length) {
-	      // 获取飞船 id
 	      var id = spaceplaneList.shift();
-
 	      sender.send({
 	        id: id,
 	        command: 'launch'
 	      });
-
-	      // 控制面板
-	      var $control = (0, _jquery2.default)('\n        <div>\n          对' + id + '号下达命令\n          <button class="run">开始飞行</button>\n          <button class="stop">停止飞行</button>\n          <button class="destory">销毁</button>\n        </div>\n      ');
-	      $control.find('.run').on('click', function () {
-	        sender.send({
-	          id: id,
-	          command: 'run'
-	        });
-	      });
-	      $control.find('.stop').on('click', function () {
-	        sender.send({
-	          id: id,
-	          command: 'stop'
-	        });
-	      });
-	      $control.find('.destory').on('click', function () {
-	        sender.send({
-	          id: id,
-	          command: 'destory'
-	        });
-	        $control.remove();
-	        spaceplaneList.push(id);
-	      });
-
-	      (0, _jquery2.default)('.control-list').append($control);
+	      $ctrlList.find('[data-id="' + id + '"]').show();
 	    }
 	  });
-	}
 
-	// 发射中心2
-	function launchCenter2(planet, accepter) {
-	  var speedTable = {
-	    1: 30,
-	    2: 50,
-	    3: 80
-	  };
-
-	  var powerTable = {
-	    1: 0.05,
-	    2: 0.07,
-	    3: 0.09
-	  };
-
-	  var energyTable = {
-	    1: 0.02,
-	    2: 0.03,
-	    3: 0.04
-	  };
-
-	  accepter.accept(function (msg) {
-	    if (msg.command == 'launch') {
-	      (0, _utils.log)('发射中心接受命令', msg, 'blue');
-	      var id = msg.id;
-	      var spaceplane = new _spaceplane.Spaceplane(id, accepter, {
-	        speed: speedTable[msg.powerType],
-	        decPower: powerTable[msg.powerType],
-	        addPower: energyTable[msg.energyType]
-	      });
-	      spaceplane.launch(planet, id * 50);
-	    }
-	  });
-	}
-
-	// 指挥中心 第二阶段
-	function center2(planet) {
-	  // 新建介质
-	  var medium = new _medium.BUS();
-	  var sender = (0, _message.senderAdapter)(new _message.Sender(medium));
-	  var accepter = (0, _message.acceptAdapter)(new _message.Accepter(medium));
-
-	  // 新建发射中心
-	  launchCenter2(planet, accepter);
-
-	  // 控制面板
-	  var $ctrl = (0, _jquery2.default)('.control-center');
-	  $ctrl.html('\n    <button class="create">新的飞船起飞</button>\n    <div>\n      <label>\n        <input type="radio" name="powerType" checked value="1"/> 前进号 (速率30px/s, 能耗5%/s)\n      </label>\n      <label>\n        <input type="radio" name="powerType"  value="2"/> 奔腾号 (速率50px/s, 能耗7%/s)\n      </label>\n      <label>\n        <input type="radio" name="powerType" value="3"/> 超越号 (速率80px/s, 能耗9%/s)\n      </label>\n    </div>\n    <div>\n      <label>\n        <input type="radio" name="energyType" checked value="1"/> 劲量型 (补充能源速度2%/s)\n      </label>\n      <label>\n        <input type="radio" name="energyType" value="2"/> 光能型 (补充能源速度3%/s)\n      </label>\n      <label>\n        <input type="radio" name="energyType" value="3"/> 永久型 (补充能源速度4%/s)\n      </label>\n    </div>\n    <div class="control-list"></div>\n  ');
-
-	  (0, _jquery2.default)('.control-center .create').on('click', function () {
-	    if (spaceplaneList.length) {
-	      // 获取飞船 id
-	      var id = spaceplaneList.shift();
-
+	  spaceplaneList.forEach(function (id) {
+	    $ctrlList.find('[data-id="' + id + '"]').on('click', function (event) {
+	      var command = event.target.dataset.command;
 	      sender.send({
 	        id: id,
-	        command: 'launch',
-	        powerType: parseInt($ctrl.find('[name="powerType"]:checked').val(), 10),
-	        energyType: parseInt($ctrl.find('[name="powerType"]:checked').val(), 10)
+	        command: command
 	      });
-
-	      // 控制面板
-	      var $control = (0, _jquery2.default)('\n        <div>\n          对' + id + '号下达命令\n          <button class="run">开始飞行</button>\n          <button class="stop">停止飞行</button>\n          <button class="destory">销毁</button>\n        </div>\n      ');
-	      $control.find('.run').on('click', function () {
-	        sender.send({
-	          id: id,
-	          command: 'run'
-	        });
-	      });
-	      $control.find('.stop').on('click', function () {
-	        sender.send({
-	          id: id,
-	          command: 'stop'
-	        });
-	      });
-	      $control.find('.destory').on('click', function () {
-	        sender.send({
-	          id: id,
-	          command: 'destory'
-	        });
-	        $control.remove();
+	      if (command === 'destory') {
+	        (0, _jquery2.default)(this).hide();
 	        spaceplaneList.push(id);
-	      });
-
-	      (0, _jquery2.default)('.control-list').append($control);
-	    }
+	      }
+	    });
 	  });
 	}
 
@@ -11726,6 +11603,7 @@
 	    value: function send(msg) {
 	      if (typeof msg != 'number') {
 	        (0, _utils.log)('禁止传播数字以外的数据', msg, 'red');
+	        return;
 	      }
 	      return _get(Object.getPrototypeOf(BUS.prototype), 'send', this).call(this, msg);
 	    }
@@ -11769,22 +11647,27 @@
 	 */
 
 	var Spaceplane = exports.Spaceplane = function () {
-	  function Spaceplane(id, accepter, config) {
+	  // 每秒运行N帧
+
+	  function Spaceplane(id, config) {
 	    var _this = this;
 
 	    _classCallCheck(this, Spaceplane);
 
 	    this.runTimer = null;
+	    this.powerTimer = null;
+	    this.framePersecond = 10;
 
 	    this.id = id;
 	    this.sprite = new _sprite.SpaceplaneSprite(this.id + '号');
 	    this.cfg = _jquery2.default.extend({
 	      speed: 20,
-	      decPower: 0.05,
-	      addPower: 0.01
+	      decPower: 5,
+	      addPower: 1,
+	      sender: null,
+	      accepter: null
 	    }, config);
-	    this.accepter = accepter;
-	    this.accepterRemove = this.accepter.accept(function (msg) {
+	    this.accepterRemove = this.cfg.accepter.accept(function (msg) {
 	      if (msg.id == _this.id) {
 	        (0, _utils.log)(_this.id + '号飞船收到消息', msg, 'blue');
 	        switch (msg.command) {
@@ -11803,6 +11686,18 @@
 	  }
 
 	  _createClass(Spaceplane, [{
+	    key: 'sendStatus',
+	    value: function sendStatus() {
+	      if (this.cfg.sender) {
+	        this.cfg.sender.send({
+	          type: 2,
+	          id: this.id,
+	          status: this.status,
+	          power: this.power
+	        });
+	      }
+	    }
+	  }, {
 	    key: 'launch',
 	    value: function launch(planet) {
 	      var _this2 = this;
@@ -11811,18 +11706,30 @@
 
 	      this.planet = planet;
 	      this.canvas = planet.canvas;
-	      this.canvas.append(this.sprite);
 	      this.radius = radius;
-	      this.power = 1;
+	      this.power = 100;
+	      this.status = 'stop';
 
-	      this.sprite.moveTo(this.planet.x, this.planet.y - this.radius);
-	      // .css('transition', 'transform 1s linear, left 1s linear, top 1s linear')
+	      this.sprite.moveTo(this.planet.x, this.planet.y - this.radius).transform('scale', '0, 0');
+	      this.canvas.append(this.sprite);
 
-	      setInterval(function () {
-	        if (_this2.power < 1) {
+	      // 起飞动画
+	      (0, _utils.nextTick)(function () {
+	        _this2.sprite.transform('scale', '1, 1').css('transformOrigin', '0 ' + radius + 'px 0') // 设置旋转中心到星球上
+	        .css('transition', ['transform ' + 1 / _this2.framePersecond + 's linear', 'left ' + 1 / _this2.framePersecond + 's linear', 'top ' + 1 / _this2.framePersecond + 's linear'].join(','));
+	      });
+
+	      this.powerTimer = setInterval(function () {
+	        // 太阳能充能
+	        if (_this2.power + _this2.cfg.addPower < 100) {
 	          _this2.power += _this2.cfg.addPower;
-	          _this2.sprite.setPower(_this2.power);
+	        } else {
+	          _this2.power = 100;
 	        }
+	        _this2.sprite.setPower(_this2.power);
+
+	        // 定时发送自身状态
+	        _this2.sendStatus();
 	      }, 1000);
 	    }
 	  }, {
@@ -11833,54 +11740,39 @@
 	      if (this.runTimer) {
 	        return;
 	      }
+	      var index = 0;
 	      var run = function run() {
-	        if (_this3.power < _this3.cfg.decPower) {
-	          _this3.stopRun();
-	          return;
+	        if (index++ % _this3.framePersecond === 0) {
+	          if (_this3.power < _this3.cfg.decPower) {
+	            _this3.stopRun();
+	            return;
+	          }
+	          _this3.power -= _this3.cfg.decPower;
+	          _this3.sprite.setPower(_this3.power);
 	        }
-	        _this3.power -= _this3.cfg.decPower;
-	        _this3.sprite.setPower(_this3.power);
-	        _this3.surroundRun(_this3.cfg.speed);
+	        _this3.sprite.css('box-shadow', -12 - (0, _utils.random)(-3, 3) + 'px ' + (0, _utils.random)(-1, 1) + 'px 12px -8px red');
+	        _this3.surroundRun(_this3.cfg.speed / _this3.framePersecond);
 	      };
+	      this.status = 'run';
 	      run();
-	      this.runTimer = setInterval(run, 1000);
+	      this.runTimer = setInterval(run, 1000 / this.framePersecond);
 	    }
 	  }, {
 	    key: 'runTo',
 	    value: function runTo(x, y, rotate) {
-	      new _sprite.ShadowSprite(this.sprite).prependTo(this.canvas);
-
 	      this.sprite.moveTo(x, y, rotate);
 	    }
 	  }, {
 	    key: 'surroundRun',
 	    value: function surroundRun(diff) {
-	      var _this4 = this;
-
-	      var timer = arguments.length <= 1 || arguments[1] === undefined ? 1000 : arguments[1];
-
-	      // XXX 这个实现不太好
-	      if (diff > 5) {
-	        this.surroundRun(diff / 2, timer / 2);
-	        setTimeout(function () {
-	          _this4.surroundRun(diff / 2, timer / 2);
-	        }, timer / 2);
-	      } else {
-	        var diffAngle = diff / this.radius;
-	        var startAngle = Math.asin((this.sprite.y - this.planet.y) / this.radius);
-	        if (this.sprite.x < this.planet.x) {
-	          startAngle = Math.PI - startAngle;
-	        }
-	        var endAngle = startAngle + diffAngle;
-	        var endY = this.planet.y + Math.sin(endAngle) * this.radius;
-	        var endX = this.planet.x + Math.cos(endAngle) * this.radius;
-
-	        this.runTo(endX, endY, this.sprite.rotate + diffAngle / 2 / Math.PI);
-	      }
+	      var rotate = diff / this.radius / Math.PI;
+	      this.runTo(this.sprite.x, this.sprite.y, this.sprite.rotate + rotate);
 	    }
 	  }, {
 	    key: 'stopRun',
 	    value: function stopRun() {
+	      this.status = 'stop';
+	      this.sprite.css('box-shadow', 'none');
 	      if (this.runTimer) {
 	        clearInterval(this.runTimer);
 	        this.runTimer = null;
@@ -11889,9 +11781,13 @@
 	  }, {
 	    key: 'destory',
 	    value: function destory() {
+	      this.status = 'destory';
+	      this.sendStatus();
 	      this.stopRun();
-	      this.sprite.remove();
+	      clearInterval(this.powerTimer);
 	      this.accepterRemove();
+	      this.sprite.remove();
+	      delete this;
 	    }
 	  }]);
 
@@ -11908,6 +11804,8 @@
 	  value: true
 	});
 	exports.Accepter = exports.Sender = undefined;
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11978,34 +11876,101 @@
 	  return Accepter;
 	}();
 
-	var convertTable = ['command', 'id', 'powerType', 'energyType'];
+	var statusTable = ['run', 'stop', 'destory'];
 
-	var commandTable = ['launch', 'run', 'stop', 'destory'];
+	/**
+	 * 将整形转换为2进制表示的字符串
+	 * @param {Number} size 长度
+	 * @return {String}
+	 */
+	Number.prototype.binary = function () {
+	  var size = arguments.length <= 0 || arguments[0] === undefined ? 4 : arguments[0];
 
-	// 将整形转换为2进制字符串
-	function binary(num) {
-	  var size = arguments.length <= 1 || arguments[1] === undefined ? 4 : arguments[1];
-
-	  num = num.toString(2);
+	  var num = this.toString(2);
 	  while (num.length < size) {
 	    num = '0' + num;
 	  }return num;
+	};
+
+	Number.prototype.binarySplit = function () {
+	  for (var _len = arguments.length, lengths = Array(_len), _key = 0; _key < _len; _key++) {
+	    lengths[_key] = arguments[_key];
+	  }
+
+	  var allLength = lengths.reduce(function (a, b) {
+	    return a + b;
+	  }, 0);
+	  var str = this.binary(allLength).split('');
+	  var numbers = [];
+	  lengths.forEach(function (len) {
+	    numbers.push(parseInt(str.splice(0, len).join(''), 2));
+	  });
+	  return numbers;
+	};
+
+	function binary(num) {
+	  var size = arguments.length <= 1 || arguments[1] === undefined ? 4 : arguments[1];
+
+	  return num.binary(size);
 	}
 
+	/**
+	 * msg格式说明
+	 * {
+	 *   type: 0 // 0 表示发射命令, 1表示控制飞船命令, 2表示飞船将自身状态发给数据处理中心
+	 *   ...
+	 * }
+	 * 发射命令
+	 * {
+	 *   type: 0
+	 *   id: id // 飞船id
+	 *   powerType: 1, // 发动机类型
+	 *   energyType: 1, // 充能类型
+	 * }
+	 * 二进制表示
+	 * 0000       0000      0000 00
+	 * energyType powerType id   type
+	 *
+	 * 控制飞船命令
+	 * {
+	 *   type: 1
+	 *   id: id // 飞船id
+	 *   command: 'run' // 飞船执行的命令
+	 * }
+	 * 二进制表示
+	 * 0000    0000  00
+	 * command id    type
+	 *
+	 * 飞船将自身状态
+	 * {
+	 *   type: 2
+	 *   id: id // 飞船id
+	 *   status: 'run' // 飞船飞行状态
+	 *   power: 100 // 飞船能量百分比
+	 * }
+	 * 二进制表示
+	 * 00000000 0000   0000 00
+	 * power    status id   type
+	 */
 	// 发送适配器
 	function senderAdapter(sender) {
 	  var send = sender.send.bind(sender);
 	  sender.send = function (msg) {
 	    (0, _utils.log)('广播适配', msg);
 
-	    var msgStr = '';
-	    convertTable.forEach(function (key, idx) {
-	      if (key == 'command') {
-	        msgStr += binary(commandTable.indexOf(msg.command));
-	      } else {
-	        msgStr += binary(key in msg ? msg[key] : 0);
-	      }
-	    });
+	    var msgStr = '' + msg.id.binary(4) + msg.type.binary(2);
+	    switch (msg.type) {
+	      case 0:
+	        msgStr = '' + msg.energyType.binary(4) + msg.powerType.binary(4) + msgStr;
+	        break;
+	      case 1:
+	        msgStr = '' + statusTable.indexOf(msg.command).binary(4) + msgStr;
+	        break;
+	      case 2:
+	        msgStr = '' + msg.power.binary(8) + statusTable.indexOf(msg.status).binary(4) + msgStr;
+	        break;
+	    }
+
 	    var msgInt = parseInt(msgStr, 2);
 
 	    // 自动重传
@@ -12026,19 +11991,236 @@
 	function acceptAdapter(accepter) {
 	  var emit = accepter.emit.bind(accepter);
 	  accepter.emit = function (msg) {
-	    var msgStr = binary(msg, 4 * convertTable.length);
-	    var msgObject = {};
-	    convertTable.forEach(function (key, idx) {
-	      var num = parseInt(msgStr.slice(idx * 4, (idx + 1) * 4), 2);
-	      if (key == 'command') {
-	        msgObject.command = commandTable[num];
-	      } else {
-	        msgObject[key] = num;
-	      }
-	    });
-	    emit(msgObject);
+	    var type = msg & parseInt('11', 2);
+	    var msgObj;
+	    switch (type) {
+	      case 0:
+	        var _msg$binarySplit = msg.binarySplit(4, 4, 4, 2);
+
+	        var _msg$binarySplit2 = _slicedToArray(_msg$binarySplit, 4);
+
+	        var energyType = _msg$binarySplit2[0];
+	        var powerType = _msg$binarySplit2[1];
+	        var id = _msg$binarySplit2[2];
+	        var _type = _msg$binarySplit2[3];
+
+	        msgObj = {
+	          type: type,
+	          id: id,
+	          energyType: energyType,
+	          powerType: powerType
+	        };
+	        break;
+	      case 1:
+	        var _msg$binarySplit3 = msg.binarySplit(4, 4, 2);
+
+	        var _msg$binarySplit4 = _slicedToArray(_msg$binarySplit3, 3);
+
+	        var command = _msg$binarySplit4[0];
+	        var id = _msg$binarySplit4[1];
+	        var _type = _msg$binarySplit4[2];
+
+	        msgObj = {
+	          type: type,
+	          id: id,
+	          command: statusTable[command]
+	        };
+	        break;
+	      case 2:
+	        var _msg$binarySplit5 = msg.binarySplit(8, 4, 4, 2);
+
+	        var _msg$binarySplit6 = _slicedToArray(_msg$binarySplit5, 4);
+
+	        var power = _msg$binarySplit6[0];
+	        var status = _msg$binarySplit6[1];
+	        var id = _msg$binarySplit6[2];
+	        var _type = _msg$binarySplit6[3];
+
+	        msgObj = {
+	          type: type,
+	          id: id,
+	          status: statusTable[status],
+	          power: power
+	        };
+	        break;
+	    }
+	    emit(msgObj);
 	  };
 	  return accepter;
+	}
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.center = center;
+
+	var _medium = __webpack_require__(11);
+
+	var _spaceplane = __webpack_require__(12);
+
+	var _utils = __webpack_require__(8);
+
+	var _jquery = __webpack_require__(6);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _message = __webpack_require__(13);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// 飞船编号
+	var spaceplaneList = [1, 2, 3, 4];
+
+	var powerTable = {
+	  1: {
+	    name: '前进号',
+	    speed: 30,
+	    power: 5,
+	    default: true
+	  },
+	  2: {
+	    name: '奔腾号',
+	    speed: 50,
+	    power: 7
+	  },
+	  3: {
+	    name: '超越号',
+	    speed: 80,
+	    power: 9
+	  }
+	};
+
+	var energyTable = {
+	  1: {
+	    name: '劲量型',
+	    power: 2,
+	    default: true
+	  },
+	  2: {
+	    name: '光能型',
+	    power: 2
+	  },
+	  3: {
+	    name: '永久型',
+	    power: 4
+	  }
+	};
+
+	var $ctrlList = (0, _jquery2.default)('.spaceplane-list');
+	$ctrlList.html('\n  <ul>\n    ' + spaceplaneList.map(function (id) {
+	  return '\n      <li data-id="' + id + '">\n        对' + id + '号下达命令\n        <button data-command="run">开始飞行</button>\n        <button data-command="stop">停止飞行</button>\n        <button data-command="destory">销毁</button>\n      </li>\n    ';
+	}).join('') + '\n  </ul>\n');
+
+	// 发射中心
+	function launchCenter(planet, sender, accepter) {
+	  accepter.accept(function (msg) {
+	    if (msg.type == 0) {
+	      (0, _utils.log)('发射中心接受命令', msg, 'blue');
+	      var id = msg.id;
+	      var powerType = powerTable[msg.powerType];
+	      var energyType = energyTable[msg.energyType];
+
+	      var spaceplane = new _spaceplane.Spaceplane(id, {
+	        sender: sender,
+	        accepter: accepter,
+	        speed: powerType.speed,
+	        decPower: powerType.power,
+	        addPower: energyType.power
+	      });
+	      spaceplane.launch(planet, id * 50 + 30);
+	    }
+	  });
+	}
+
+	// 数据处理中心
+	function dataCenter(planet, accepter) {
+	  (0, _jquery2.default)('.data-table').show();
+	  (0, _jquery2.default)('.data-table>tbody').html('\n    ' + spaceplaneList.map(function (id) {
+	    return '\n      <tr data-id=\'' + id + '\'></tr>\n    ';
+	  }).join('') + '\n  ');
+
+	  function dataRow(id) {
+	    return (0, _jquery2.default)('.data-table [data-id="' + id + '"]');
+	  }
+	  accepter.accept(function (msg) {
+	    if (msg.type === 0) {
+	      var id = msg.id;
+	      var powerType = powerTable[msg.powerType];
+	      var energyType = energyTable[msg.energyType];
+	      dataRow(id).show();
+	      dataRow(id).html('\n        <td>' + id + '号</td>\n        <td>' + powerType.name + '</td>\n        <td>' + energyType.name + '</td>\n        <td class="status">停止中</td>\n        <td class="power">100%</td>\n      ');
+	    } else if (msg.type === 2) {
+	      var id = msg.id;
+	      if (msg.status === 'destory') {
+	        dataRow(id).hide();
+	      } else {
+	        dataRow(id).find('.status').html('' + { run: '飞行中', 'stop': '停止中' }[msg.status]);
+	        dataRow(id).find('.power').html(msg.power + '%');
+	      }
+	    }
+	  });
+	}
+
+	// 指挥中心 第二阶段
+	function center(planet) {
+	  // 新建介质
+	  var medium = new _medium.BUS();
+	  var sender = (0, _message.senderAdapter)(new _message.Sender(medium));
+	  var accepter = (0, _message.acceptAdapter)(new _message.Accepter(medium));
+
+	  // 新建发射中心
+	  launchCenter(planet, sender, accepter);
+
+	  // 数据处理中心
+	  dataCenter(planet, accepter);
+
+	  var map = function map(obj, cb) {
+	    var ret = [];
+	    for (var key in obj) {
+	      ret.push(cb(key, obj[key]));
+	    }
+	    return ret;
+	  };
+	  // 控制面板
+	  (0, _jquery2.default)('.creater').html('\n    <button class="create">新的飞船起飞</button>\n    <div>动力系统:</div>\n    <div>\n      ' + map(powerTable, function (id, o) {
+	    return '\n        <label>\n          <input type="radio" name="powerType" ' + (o.default ? 'checked' : '') + ' value="' + id + '"/>\n          ' + o.name + ' (速率' + o.speed + 'px/s, 能耗' + o.power + '%/s)\n        </label>\n      ';
+	  }) + '\n    </div>\n    <div>能源系统:</div>\n    <div>\n      ' + map(energyTable, function (id, o) {
+	    return '\n        <label>\n          <input type="radio" name="energyType" ' + (o.default ? 'checked' : '') + ' value="' + id + '"/>\n          ' + o.name + ' (补充能源速度' + o.power + '%/s)\n        </label>\n      ';
+	  }) + '\n    </div>\n  ');
+
+	  (0, _jquery2.default)('.creater .create').on('click', function () {
+	    if (spaceplaneList.length) {
+	      var id = spaceplaneList.shift();
+	      sender.send({
+	        type: 0,
+	        id: id,
+	        powerType: parseInt((0, _jquery2.default)('.creater').find('[name="powerType"]:checked').val(), 10),
+	        energyType: parseInt((0, _jquery2.default)('.creater').find('[name="powerType"]:checked').val(), 10)
+	      });
+	      $ctrlList.find('[data-id="' + id + '"]').show();
+	    }
+	  });
+
+	  spaceplaneList.forEach(function (id) {
+	    $ctrlList.find('[data-id="' + id + '"]').on('click', function (event) {
+	      var command = event.target.dataset.command;
+	      sender.send({
+	        type: 1,
+	        id: id,
+	        command: command
+	      });
+	      if (command === 'destory') {
+	        (0, _jquery2.default)(this).hide();
+	        spaceplaneList.push(id);
+	      }
+	    });
+	  });
 	}
 
 /***/ }
