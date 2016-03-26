@@ -11,6 +11,18 @@ html, body {
   }
 }
 
+.row {
+  @extend %row;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
 body {
   // display: flex;
   // flex-direction: column;
@@ -19,7 +31,6 @@ body {
 }
 
 #canvas {
-  // float: left;
   width: 500px;
   height: 500px;
   background-color: black;
@@ -30,9 +41,27 @@ body {
   }
 }
 
-.control-panel {
-  // float: left;
+.creater, .spaceplane-list {
   border: 1px solid gray;
   padding: 10px;
-  margin: 10px 0;
+  margin: 0;
+}
+
+.spaceplane-list ul {
+  list-style-type: none;
+  padding: 0;
+  li {
+    display: none;
+  }
+}
+
+.data-table {
+  display: none;
+  border-collapse: collapse;
+  thead {
+    background-color: #BBB;
+  }
+  tbody td {
+    border: 1px solid #BBB;
+  }
 }

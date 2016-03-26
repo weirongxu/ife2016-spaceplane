@@ -52,6 +52,7 @@ export class BUS extends Medium {
   send(msg) {
     if (typeof(msg) != 'number') {
       log('禁止传播数字以外的数据', msg, 'red')
+      return
     }
     return super.send(msg)
   }

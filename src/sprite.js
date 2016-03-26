@@ -134,12 +134,12 @@ export class SpaceplaneSprite extends Sprite {
     super(...args)
 
     this.name = name
-    this.setPower(1)
+    this.setPower(100)
   }
 
   render() {
     super.render()
-    .size(80, 30)
+    .size(70, 25)
     .css({
       borderRadius: '20px',
       overflow: 'hidden',
@@ -155,19 +155,19 @@ export class SpaceplaneSprite extends Sprite {
       height: '100%',
       lineHeight: this.height + 'px',
       textAlign: 'center',
-      fontSize: '13px',
+      fontSize: '12px',
       fontWeight: 'bold',
       zIndex: 2,
       padding: '0 5px',
       borderRadius: '40px',
       borderRight: '8px solid blue',
     })
-    .text(`${this.name}-${(this._power * 100).toFixed()}%`)
+    .text(`${this.name}-${(this._power).toFixed()}%`)
     .appendTo(this)
 
     // 监控能量变化
     this.on('update.power', () => {
-      this.hint.text(`${this.name}-${(this._power * 100).toFixed()}%`)
+      this.hint.text(`${this.name}-${(this._power).toFixed()}%`)
     })
 
     return this
@@ -180,28 +180,5 @@ export class SpaceplaneSprite extends Sprite {
   setPower(power) {
     this._power = power
     this.emit('update.power', power)
-  }
-}
-
-export class ShadowSprite extends SpaceplaneSprite {
-  constructor(spaceplane) {
-    super(spaceplane.name)
-
-    this.from = spaceplane
-  }
-
-  render() {
-    super.render()
-    this
-    .moveTo(this.from.x, this.from.y, this.from.rotate)
-    .css('opacity', 0.4)
-    .css({
-      opacity: 0.1,
-    })
-    .axisCenter()
-
-    setTimeout(() => {
-      this.remove()
-    }, 400)
   }
 }

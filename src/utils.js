@@ -20,5 +20,17 @@ export function random(min, max) {
 
 export function log(content, msg, color='black') {
   /*eslint no-console: 0 */
-  console.log(`%c${content}, ${JSON.stringify(msg)}`, `color: ${color}`)
+  var msgLog
+  if (typeof(msg) === 'object') {
+    msgLog = JSON.stringify(msg)
+  } else if (typeof(msg) === 'number') {
+    msgLog = msg.toString(2)
+  }
+  console.log(`%c${content}, ${msgLog}`, `color: ${color}`)
+}
+
+export function nextTick(fn) {
+  setTimeout(function() {
+    fn()
+  }, 0);
 }

@@ -1,5 +1,5 @@
-import {SpaceplaneSprite, ShadowSprite} from './sprite'
-import {log} from './utils'
+import {SpaceplaneSprite} from './sprite'
+import {log, random, nextTick} from './utils'
 import $ from 'jquery'
 
 /**
@@ -7,17 +7,20 @@ import $ from 'jquery'
  */
 export class Spaceplane {
   runTimer = null
+  powerTimer = null
+  framePersecond = 10 // 每秒运行N帧
 
-  constructor(id, accepter, config) {
+  constructor(id, config) {
     this.id = id
     this.sprite = new SpaceplaneSprite(this.id + '号')
     this.cfg = $.extend({
       speed: 20,
-      decPower: 0.05,
-      addPower: 0.01,
+      decPower: 5,
+      addPower: 1,
+      sender: null,
+      accepter: null,
     }, config)
-    this.accepter = accepter
-    this.accepterRemove = this.accepter.accept((msg) => {
+    this.accepterRemove = this.cfg.accepter.accept((msg) => {
       if (msg.id == this.id) {
         log(`${this.id}号飞船收到消息`, msg, 'blue')
         switch(msg.command) {
@@ -35,22 +38,52 @@ export class Spaceplane {
     })
   }
 
+  sendStatus() {
+    if (this.cfg.sender) {
+      this.cfg.sender.send({
+        type: 2,
+        id: this.id,
+        status: this.status,
+        power: this.power,
+      })
+    }
+  }
+
   launch(planet, radius=100) {
     this.planet = planet
     this.canvas = planet.canvas
-    this.canvas.append(this.sprite)
     this.radius = radius
-    this.power = 1
+    this.power = 100
+    this.status = 'stop'
 
     this.sprite
     .moveTo(this.planet.x, this.planet.y - this.radius)
-    // .css('transition', 'transform 1s linear, left 1s linear, top 1s linear')
+    .transform('scale', '0, 0')
+    this.canvas.append(this.sprite)
 
-    setInterval(() => {
-      if (this.power < 1) {
+    // 起飞动画
+    nextTick(() => {
+      this.sprite
+      .transform('scale', '1, 1')
+      .css('transformOrigin', `0 ${radius}px 0`) // 设置旋转中心到星球上
+      .css('transition', [
+        `transform ${1/this.framePersecond}s linear`,
+        `left ${1/this.framePersecond}s linear`,
+        `top ${1/this.framePersecond}s linear`,
+      ].join(','))
+    })
+
+    this.powerTimer = setInterval(() => {
+      // 太阳能充能
+      if (this.power + this.cfg.addPower < 100) {
         this.power += this.cfg.addPower
-        this.sprite.setPower(this.power)
+      } else {
+        this.power = 100
       }
+      this.sprite.setPower(this.power)
+
+      // 定时发送自身状态
+      this.sendStatus()
     }, 1000)
   }
 
@@ -58,48 +91,37 @@ export class Spaceplane {
     if (this.runTimer) {
       return
     }
+    var index = 0
     var run = () => {
-      if (this.power < this.cfg.decPower) {
-        this.stopRun()
-        return
+      if (index++ % this.framePersecond === 0) {
+        if (this.power < this.cfg.decPower) {
+          this.stopRun()
+          return
+        }
+        this.power -= this.cfg.decPower
+        this.sprite.setPower(this.power)
       }
-      this.power -= this.cfg.decPower
-      this.sprite.setPower(this.power)
-      this.surroundRun(this.cfg.speed)
+      this.sprite.css('box-shadow',
+          `${-12-random(-3, 3)}px ${random(-1, 1)}px 12px -8px red`)
+      this.surroundRun(this.cfg.speed/this.framePersecond)
     }
+    this.status = 'run'
     run()
-    this.runTimer = setInterval(run, 1000)
+    this.runTimer = setInterval(run, 1000/this.framePersecond)
   }
 
   runTo(x, y, rotate) {
-    (new ShadowSprite(this.sprite))
-    .prependTo(this.canvas)
-
     this.sprite.moveTo(x, y, rotate)
   }
 
-  surroundRun(diff, timer=1000) {
-    // XXX 这个实现不太好
-    if (diff > 3) {
-      this.surroundRun(diff/2, timer/2)
-      setTimeout(() => {
-        this.surroundRun(diff/2, timer/2)
-      }, timer/2)
-    } else {
-      var diffAngle = diff / this.radius
-      var startAngle = Math.asin((this.sprite.y - this.planet.y) / this.radius)
-      if (this.sprite.x < this.planet.x) {
-        startAngle = Math.PI - startAngle
-      }
-      var endAngle = (startAngle + diffAngle)
-      var endY = this.planet.y + Math.sin(endAngle) * this.radius
-      var endX = this.planet.x + Math.cos(endAngle) * this.radius
-
-      this.runTo(endX, endY, this.sprite.rotate + diffAngle / 2 / Math.PI)
-    }
+  surroundRun(diff) {
+    var rotate = diff / this.radius / Math.PI
+    this.runTo(this.sprite.x, this.sprite.y, this.sprite.rotate + rotate)
   }
 
   stopRun() {
+    this.status = 'stop'
+    this.sprite.css('box-shadow', 'none')
     if (this.runTimer) {
       clearInterval(this.runTimer)
       this.runTimer = null
@@ -107,8 +129,12 @@ export class Spaceplane {
   }
 
   destory() {
+    this.status = 'destory'
+    this.sendStatus()
     this.stopRun()
-    this.sprite.remove()
+    clearInterval(this.powerTimer)
     this.accepterRemove()
+    this.sprite.remove()
+    delete this
   }
 }
