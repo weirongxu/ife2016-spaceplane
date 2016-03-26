@@ -21,7 +21,7 @@ export class Spaceplane {
       accepter: null,
     }, config)
     this.accepterRemove = this.cfg.accepter.accept((msg) => {
-      if (msg.id == this.id) {
+      if (msg.type === 1 && msg.id == this.id) {
         log(`${this.id}号飞船收到消息`, msg, 'blue')
         switch(msg.command) {
         case 'run':

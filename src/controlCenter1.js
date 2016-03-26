@@ -28,7 +28,7 @@ $ctrlList.html(`
 
 function launchCenter(planet, accepter) {
   accepter.accept((msg) => {
-    if (msg.command == 'launch') {
+    if (msg.type === 0) {
       log('发射中心接受命令', msg, 'blue')
       var id = msg.id
       var spaceplane = new Spaceplane(id, {accepter})
@@ -56,8 +56,8 @@ export function center(planet) {
     if (spaceplaneList.length) {
       var id = spaceplaneList.shift()
       sender.send({
+        type: 0,
         id: id,
-        command: 'launch',
       })
       $ctrlList.find(`[data-id="${id}"]`).show()
     }
@@ -67,6 +67,7 @@ export function center(planet) {
     $ctrlList.find(`[data-id="${id}"]`).on('click', function(event) {
       var command = event.target.dataset.command
       sender.send({
+        type: 1,
         id: id,
         command: command,
       })
