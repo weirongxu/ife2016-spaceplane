@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "webpack-dev-server --host='0.0.0.0' --progress --colors --inline --hot",
     "lint": "eslint src",
-    "deploy": "gh-pages -d build",
-    "build": "rm -rf build && webpack && cp index.html build/index.html"
+    "deploy": "npm run build && gh-pages -d build",
+    "build": "rm -rf build && webpack --optimize-minimize && cp index.html build/index.html"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.4",
