@@ -7,7 +7,6 @@ import $ from 'jquery'
  */
 export class Satellite {
   runTimer = null
-  framePersecond = 10 // 每秒运行N帧
   sprite = new Sprite()
 
   constructor(planet, radius, speed) {
@@ -24,16 +23,16 @@ export class Satellite {
       backgroundColor: 'black',
       boxShadow: '0px 0px 20px -2px white',
       transformOrigin: `0 ${radius}px 0`,  // 设置旋转中心到星球上
-      transition: `transform ${1/this.framePersecond}s linear`, // 设置一帧动画耗时
+      transition: `transform 1s linear`, // 设置一帧动画耗时
     })
     this.canvas.append(this.sprite)
   }
 
   run() {
     var run = () => {
-      this.surroundRun(this.speed/this.framePersecond)
+      this.surroundRun(this.speed)
     }
-    this.runTimer = setInterval(run, 1000/this.framePersecond)
+    this.runTimer = setInterval(run, 1000)
     run()
   }
 
