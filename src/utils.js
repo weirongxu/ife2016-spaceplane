@@ -28,8 +28,11 @@ export function log(content, msg, color=null) {
     msgLog = msg.toString(2)
   }
   var $log = $('.log')
-  $log.append(`<div style="color: ${color || 'white'};">${content}, ${msgLog}</div>`)
-  $log.scrollTop($log[0].scrollHeight)
+  if ($log.find('input').prop('checked')) {
+    var $list = $log.find('.list')
+    $list.append(`<div style="color: ${color || 'white'};">${content}, ${msgLog}</div>`)
+    $list.scrollTop($list[0].scrollHeight)
+  }
   // console.log(`%c${content}, ${msgLog}`, `color: ${color || 'black'}`)
 }
 
