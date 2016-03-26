@@ -45,8 +45,6 @@
 
 ![第二阶段](http://7xrp04.com1.z0.glb.clouddn.com/task_2_27_1.jpg)
 
-[在线链接](http://weirongxu.github.io/ife2016-spaceplane/#center2)
-
 ## 第三阶段
 - 基于上个任务，我们继续改善
 - 第二代宇宙飞船系统进步了很多，但是我们依然无法知道飞船的能源消耗情况，可能有的时候我们发出开始飞行的指令，但飞船早就没有能量了，所以我们再次进行升级，这次我们需要增加一个飞船状态的监视系统
@@ -56,3 +54,5 @@
 - 实现一个行星上的监视大屏幕（如图），用来显示所有飞船的飞行状态及能源情况，当数据处理中心飞船数据发生变化时，它会相应在监视器上做出变化
 
 ![第三阶段](http://7xrp04.com1.z0.glb.clouddn.com/task_2_28_1.jpg)
+
+[在线链接](http://weirongxu.github.io/ife2016-spaceplane/#center3)
