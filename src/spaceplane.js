@@ -70,7 +70,8 @@ export class Spaceplane {
     })
     nextTick(() => {
       // 设置一帧动画耗时
-      this.css('transition', `transform ${1/this.framePersecond}s linear`)
+      this.sprite
+      .css('transition', `transform ${1/this.framePersecond}s linear`)
     })
 
     this.powerTimer = setInterval(() => {

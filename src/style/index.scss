@@ -24,15 +24,13 @@ html, body {
 }
 
 body {
-  // display: flex;
-  // flex-direction: column;
   margin: 0;
   @extend %row;
 }
 
 #canvas {
-  width: 600px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   background-color: black;
   position: relative;
   user-select: none;
@@ -41,32 +39,69 @@ body {
   }
 }
 
+.panel {
+  color: #BDBDBD;
+}
+
 .creater, .spaceplane-list {
   border: 1px solid gray;
   padding: 10px;
   margin: 0;
 }
 
-.spaceplane-list ul {
-  height: 100px;
-  list-style-type: none;
-  padding: 0;
-  li {
-    display: none;
+.creater {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.spaceplane-list {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  ul {
+    height: 100px;
+    width: 300px;
+    list-style-type: none;
+    padding: 0;
+    li {
+      display: none;
+    }
   }
 }
 
 .data-table {
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.1);
   display: none;
   border-collapse: collapse;
   text-align: center;
   thead {
     background-color: #BBB;
     th {
+      color: black;
       padding: 5px 10px;
     }
   }
   tbody td {
     border: 1px solid #BBB;
   }
+}
+
+.log {
+  position: fixed;
+  right: 0;
+  border-radius: 10px;
+  padding: 10px;
+  width: 400px;
+  height: 400px;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  overflow: auto;
 }

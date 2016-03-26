@@ -61,7 +61,7 @@ var energyTable = {
     power: 4,
   },
   4: {
-    name: 'BUG型',
+    name: '外挂型',
     power: 20,
   },
 }
