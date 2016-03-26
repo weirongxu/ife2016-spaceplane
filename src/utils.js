@@ -32,5 +32,5 @@ export function log(content, msg, color='black') {
 export function nextTick(fn) {
   setTimeout(function() {
     fn()
-  }, 0);
+  }, 0)
 }

@@ -136,7 +136,7 @@ function dataCenter(planet, accepter) {
   })
 }
 
-// 指挥中心 第二阶段
+// 指挥中心
 export function center(planet) {
   // 新建介质
   var medium = new BUS()
@@ -159,7 +159,7 @@ export function center(planet) {
   // 控制面板
   $('.creater').html(`
     <button class="create">新的飞船起飞</button>
-    <div>动力系统:</div>
+    <div><strong>动力系统:</strong></div>
     <div>
       ${map(powerTable, (id, o) => `
         <label>
@@ -169,7 +169,7 @@ export function center(planet) {
         </label>
       `).join('')}
     </div>
-    <div>能源系统:</div>
+    <div><strong>能源系统:</strong></div>
     <div>
       ${map(energyTable, (id, o) => `
         <label>

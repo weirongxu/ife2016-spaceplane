@@ -59,6 +59,7 @@ export class Spaceplane {
     this.sprite
     .moveTo(this.planet.x, this.planet.y - this.radius)
     .transform('scale', '0, 0')
+    .css('transition', 'transform 0.5s linear')
     this.canvas.append(this.sprite)
 
     // 起飞动画
@@ -66,7 +67,10 @@ export class Spaceplane {
       this.sprite
       .transform('scale', '1, 1')
       .css('transformOrigin', `0 ${radius}px 0`) // 设置旋转中心到星球上
-      .css('transition', [
+    })
+    nextTick(() => {
+      // 设置飞机一帧动画耗时
+      this.css('transition', [
         `transform ${1/this.framePersecond}s linear`,
         `left ${1/this.framePersecond}s linear`,
         `top ${1/this.framePersecond}s linear`,
