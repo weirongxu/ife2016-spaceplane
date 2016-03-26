@@ -60,6 +60,10 @@ var energyTable = {
     name: '永久型',
     power: 4,
   },
+  4: {
+    name: 'BUG型',
+    power: 20,
+  },
 }
 
 
@@ -158,7 +162,6 @@ export function center(planet) {
   }
   // 控制面板
   $('.creater').html(`
-    <button class="create">新的飞船起飞</button>
     <div><strong>动力系统:</strong></div>
     <div>
       ${map(powerTable, (id, o) => `
@@ -179,6 +182,7 @@ export function center(planet) {
         </label>
       `).join('')}
     </div>
+    <button class="create">新的飞船起飞</button>
   `)
 
   $('.creater .create').on('click', () => {

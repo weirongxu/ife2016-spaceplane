@@ -119,8 +119,8 @@ export class PlanetSprite extends Sprite {
     super.render()
     .size(this._size, this._size)
     .css({
-      backgroundColor: 'blue',
-      borderRadius: '100%'
+      backgroundColor: '#009DAD',
+      borderRadius: '100%',
     })
     .axisCenter()
     return this

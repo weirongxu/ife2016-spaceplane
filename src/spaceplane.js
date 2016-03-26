@@ -69,12 +69,8 @@ export class Spaceplane {
       .css('transformOrigin', `0 ${radius}px 0`) // 设置旋转中心到星球上
     })
     nextTick(() => {
-      // 设置飞机一帧动画耗时
-      this.css('transition', [
-        `transform ${1/this.framePersecond}s linear`,
-        `left ${1/this.framePersecond}s linear`,
-        `top ${1/this.framePersecond}s linear`,
-      ].join(','))
+      // 设置一帧动画耗时
+      this.css('transition', `transform ${1/this.framePersecond}s linear`)
     })
 
     this.powerTimer = setInterval(() => {

@@ -31,8 +31,8 @@ body {
 }
 
 #canvas {
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   background-color: black;
   position: relative;
   user-select: none;
@@ -48,6 +48,7 @@ body {
 }
 
 .spaceplane-list ul {
+  height: 100px;
   list-style-type: none;
   padding: 0;
   li {
@@ -58,8 +59,12 @@ body {
 .data-table {
   display: none;
   border-collapse: collapse;
+  text-align: center;
   thead {
     background-color: #BBB;
+    th {
+      padding: 5px 10px;
+    }
   }
   tbody td {
     border: 1px solid #BBB;
