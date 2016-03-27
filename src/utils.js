@@ -41,3 +41,11 @@ export function nextTick(fn) {
     fn()
   }, 0)
 }
+
+export function map(obj, callback) {
+  var ret = []
+  for (var key in obj) {
+    ret.push(callback(obj[key], key))
+  }
+  return ret
+}

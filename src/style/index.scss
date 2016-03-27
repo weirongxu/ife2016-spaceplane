@@ -25,15 +25,17 @@ html, body {
 
 body {
   margin: 0;
+  padding: 0;
   @extend %row;
 }
 
 #canvas {
-  width: 100%;
-  height: 100%;
   background-color: black;
+  background-image: url(/imgs/galaxy.jpg);
+  background-size: cover;
   position: relative;
   user-select: none;
+  display: block;
   div {
     box-sizing: border-box;
   }

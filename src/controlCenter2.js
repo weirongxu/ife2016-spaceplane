@@ -1,6 +1,6 @@
-import {Mediator, BUS} from './medium'
+import {BUS} from './medium'
 import {Spaceplane} from './spaceplane'
-import {log} from './utils'
+import {log, map} from './utils'
 import $ from 'jquery'
 import {Sender, Accepter, senderAdapter, acceptAdapter} from './message.js'
 
@@ -32,12 +32,12 @@ var powerTable = {
     name: '核动力号',
     speed: 200,
     power: 10,
+    default: true,
   },
   5: {
     name: '光速号',
     speed: 500,
     power: 12,
-    default: true,
   },
   6: {
     name: '曲率驱动号',
@@ -116,9 +116,9 @@ function dataCenter(planet, accepter) {
   }
   accepter.accept((msg) => {
     if (msg.type === 0) {
-      var id = msg.id
-      var powerType = powerTable[msg.powerType]
-      var energyType = energyTable[msg.energyType]
+      let id = msg.id
+      let powerType = powerTable[msg.powerType]
+      let energyType = energyTable[msg.energyType]
       dataRow(id).show()
       dataRow(id).html(`
         <td>${id}号</td>
@@ -128,12 +128,11 @@ function dataCenter(planet, accepter) {
         <td class="power">100%</td>
       `)
     } else if (msg.type === 2) {
-      var id = msg.id
+      let id = msg.id
       if (msg.status === 'destory') {
         dataRow(id).hide()
       } else {
-        dataRow(id).find('.status').html(
-            `${{run: '飞行中', 'stop': '停止中', }[msg.status]}`)
+        dataRow(id).find('.status').html(`${{run: '飞行中', 'stop': '停止中'}[msg.status]}`)
         dataRow(id).find('.power').html(`${msg.power}%`)
       }
     }
@@ -153,18 +152,11 @@ export function center(planet) {
   // 数据处理中心
   dataCenter(planet, accepter)
 
-  var map = (obj, cb) => {
-    var ret = []
-    for (var key in obj) {
-     ret.push(cb(key, obj[key]))
-    }
-    return ret
-  }
   // 控制面板
   $('.creater').html(`
     <div><strong>动力系统:</strong></div>
     <div>
-      ${map(powerTable, (id, o) => `
+      ${map(powerTable, (o, id) => `
         <label>
           <input type="radio" name="powerType" ${o.default ? 'checked' : ''} value="${id}"/>
           ${o.name} (速率${o.speed}px/s, 能耗${o.power}%/s)
@@ -174,7 +166,7 @@ export function center(planet) {
     </div>
     <div><strong>能源系统:</strong></div>
     <div>
-      ${map(energyTable, (id, o) => `
+      ${map(energyTable, (o, id) => `
         <label>
           <input type="radio" name="energyType" ${o.default ? 'checked' : ''} value="${id}"/>
           ${o.name} (补充能源速度${o.power}%/s)

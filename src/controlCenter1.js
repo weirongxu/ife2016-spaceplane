@@ -1,8 +1,8 @@
-import {Mediator, BUS} from './medium'
+import {Mediator} from './medium'
 import {Spaceplane} from './spaceplane'
 import {log} from './utils'
 import $ from 'jquery'
-import {Sender, Accepter, senderAdapter, acceptAdapter} from './message.js'
+import {Sender, Accepter} from './message.js'
 
 // 飞船编号
 var spaceplaneList = [

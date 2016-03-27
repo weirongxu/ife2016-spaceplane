@@ -1,5 +1,5 @@
-import {SpaceplaneSprite} from './sprite'
-import {log, random, nextTick} from './utils'
+import {SpaceplaneElement} from './elements'
+import {log} from './utils'
 import $ from 'jquery'
 
 /**
@@ -12,7 +12,6 @@ export class Spaceplane {
 
   constructor(id, config) {
     this.id = id
-    this.sprite = new SpaceplaneSprite(this.id + '号')
     this.cfg = $.extend({
       speed: 20,
       decPower: 5,
@@ -25,10 +24,10 @@ export class Spaceplane {
         log(`${this.id}号飞船收到消息`, msg, 'blue')
         switch(msg.command) {
         case 'run':
-          this.startRun()
+          this.run()
           break
         case 'stop':
-          this.stopRun()
+          this.stop()
           break
         case 'destory':
           this.destory()
@@ -50,29 +49,27 @@ export class Spaceplane {
   }
 
   launch(planet, radius=100) {
+    this.el = new SpaceplaneElement(planet, this.id + '号', radius, this.cfg.speed)
     this.planet = planet
-    this.canvas = planet.canvas
+    this.world = planet.world
     this.radius = radius
     this.power = 100
     this.status = 'stop'
 
-    this.sprite
-    .moveTo(this.planet.x, this.planet.y - this.radius)
-    .transform('scale', '0, 0')
-    .css('transition', 'transform 0.5s linear')
-    this.canvas.append(this.sprite)
+    this.el.on('run.start', () => {
+      this.status = 'run'
+    }).on('run.step', () => {
+      if (this.power < this.cfg.decPower) {
+        this.stop()
+        return
+      }
+      this.power -= this.cfg.decPower
+      this.el.setPower(this.power)
+    }).on('stop', () => {
+      this.status = 'stop'
+    })
 
-    // 起飞动画
-    nextTick(() => {
-      this.sprite
-      .transform('scale', '1, 1')
-      .css('transformOrigin', `0 ${radius}px 0`) // 设置旋转中心到星球上
-    })
-    nextTick(() => {
-      // 设置一帧动画耗时
-      this.sprite
-      .css('transition', `transform ${1/this.framePersecond}s linear`)
-    })
+    this.world.append(this.el)
 
     this.powerTimer = setInterval(() => {
       // 太阳能充能
@@ -81,61 +78,26 @@ export class Spaceplane {
       } else {
         this.power = 100
       }
-      this.sprite.setPower(this.power)
+      this.el.setPower(this.power)
 
       // 定时发送自身状态
       this.sendStatus()
     }, 1000)
   }
 
-  startRun() {
-    if (this.runTimer) {
-      return
-    }
-    var index = 0
-    var run = () => {
-      if (index++ % this.framePersecond === 0) {
-        if (this.power < this.cfg.decPower) {
-          this.stopRun()
-          return
-        }
-        this.power -= this.cfg.decPower
-        this.sprite.setPower(this.power)
-      }
-      this.sprite.css('box-shadow',
-          `${-12-random(-3, 3)}px ${random(-1, 1)}px 12px -8px red`)
-      this.surroundRun(this.cfg.speed/this.framePersecond)
-    }
-    this.status = 'run'
-    run()
-    this.runTimer = setInterval(run, 1000/this.framePersecond)
+  run() {
+    this.el.run()
   }
 
-  runTo(x, y, rotate) {
-    this.sprite.moveTo(x, y, rotate)
-  }
-
-  surroundRun(diff) {
-    var rotate = diff / this.radius / Math.PI
-    this.runTo(this.sprite.x, this.sprite.y, this.sprite.rotate + rotate)
-  }
-
-  stopRun() {
-    this.status = 'stop'
-    this.sprite.css('box-shadow', 'none')
-    if (this.runTimer) {
-      clearInterval(this.runTimer)
-      this.runTimer = null
-    }
+  stop() {
+    this.el.speedCut()
   }
 
   destory() {
     this.status = 'destory'
     this.sendStatus()
-    this.stopRun()
+    this.el.remove()
     clearInterval(this.powerTimer)
     this.accepterRemove()
-    this.sprite.remove()
-    delete this
   }
 }

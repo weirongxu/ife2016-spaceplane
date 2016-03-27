@@ -54,6 +54,10 @@ Number.prototype.binary = function(size=4) {
   return num
 }
 
+/**
+ * 将二进制数字按位数分别切割成数字
+ * @return {String}
+ */
 Number.prototype.binarySplit = function(...lengths) {
   var allLength = lengths.reduce((a, b) => a + b, 0)
   var str = this.binary(allLength).split('')
@@ -62,10 +66,6 @@ Number.prototype.binarySplit = function(...lengths) {
     numbers.push(parseInt(str.splice(0, len).join(''), 2))
   })
   return numbers
-}
-
-function binary(num, size=4) {
-  return num.binary(size)
 }
 
 /**
@@ -149,32 +149,32 @@ export function acceptAdapter(accepter) {
     var type = msg & parseInt('11', 2)
     var msgObj
     switch(type) {
-      case 0:
-        var [energyType, powerType, id, _type] = msg.binarySplit(4, 4, 4, 2)
-        msgObj = {
-          type,
-          id,
-          energyType,
-          powerType,
-        }
-        break
-      case 1:
-        var [command, id, _type] = msg.binarySplit(4, 4, 2)
-        msgObj = {
-          type,
-          id,
-          command: statusTable[command],
-        }
-        break
-      case 2:
-        var [power, status, id, _type] = msg.binarySplit(8, 4, 4, 2)
-        msgObj = {
-          type,
-          id,
-          status: statusTable[status],
-          power,
-        }
-        break
+    case 0:
+      var [energyType, powerType, id, _type] = msg.binarySplit(4, 4, 4, 2)
+      msgObj = {
+        type,
+        id,
+        energyType,
+        powerType,
+      }
+      break
+    case 1:
+      var [command, id, _type] = msg.binarySplit(4, 4, 2)
+      msgObj = {
+        type,
+        id,
+        command: statusTable[command],
+      }
+      break
+    case 2:
+      var [power, status, id, _type] = msg.binarySplit(8, 4, 4, 2)
+      msgObj = {
+        type,
+        id,
+        status: statusTable[status],
+        power,
+      }
+      break
     }
     emit(msgObj)
   }
