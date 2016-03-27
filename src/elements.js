@@ -1,11 +1,15 @@
 import {Element} from './canvas'
+import planetImgUrl from './imgs/planet.png'
+import satelliteImgUrl from './imgs/satellite.png'
+import spaceshipImgUrl from './imgs/spaceship.png'
+import spaceshipFireImgUrl from './imgs/spaceship-fire.png'
 
 export class PlanetElement extends Element {
   constructor(size) {
     super()
     this.width = this.height = this._size = size * 2
     this.img = new Image()
-    this.img.src = 'imgs/planet.png'
+    this.img.src = planetImgUrl
   }
 
   draw() {
@@ -28,7 +32,7 @@ export class SatelliteElement extends PlanetElement {
     this.r = 0
 
     this.img = new Image()
-    this.img.src = 'imgs/satellite.png'
+    this.img.src = satelliteImgUrl
   }
 
   draw() {
@@ -81,9 +85,9 @@ export class SpaceplaneElement extends Element {
     this.r = 0
 
     this.img = new Image()
-    this.img.src = 'imgs/spaceship.png'
+    this.img.src = spaceshipImgUrl
     this.imgFire = new Image()
-    this.imgFire.src = 'imgs/spaceship-fire.png'
+    this.imgFire.src = spaceshipFireImgUrl
   }
 
   draw() {

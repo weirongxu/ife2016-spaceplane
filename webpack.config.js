@@ -1,3 +1,4 @@
+var isProduction = process.env.NODE_ENV === 'production'
 var path = require('path')
 var autoprefixer = require('autoprefixer')
 
@@ -7,7 +8,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: './build/assets/',
-    publicPath: '/assets/',
+    publicPath: isProduction ? './assets/' : '/assets/',
   },
   module: {
     loaders: [
@@ -22,7 +23,14 @@ module.exports = {
       {
         test: /\.(scss|sass)/,
         exclude: /(node_modules|bower_components)/,
-        loaders: ['style', 'css', 'postcss', 'sass'],
+        loaders: ['style', 'css', 'postcss', 'resolve-url', 'sass'],
+      },
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        loader: 'url',
+        query: {
+          limit: 1000,
+        }
       },
     ],
   },

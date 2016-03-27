@@ -2,10 +2,10 @@
   "name": "ife2016-spaceplane",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --host='0.0.0.0' --progress --colors --inline --hot",
+    "dev": "webpack-dev-server --host='0.0.0.0' --devtool='inline-source-map' --progress --colors --inline --hot",
     "lint": "eslint src",
     "deploy": "npm run build && gh-pages -d build",
-    "build": "rm -rf build && webpack --optimize-minimize && cp index.html build/index.html"
+    "build": "rm -rf build && NODE_ENV='production' webpack --optimize-minimize && cp index.html build/index.html"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.4",
@@ -21,8 +21,10 @@
     "jquery": "^2.2.2",
     "node-sass": "^3.4.2",
     "postcss-loader": "^0.8.2",
+    "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
