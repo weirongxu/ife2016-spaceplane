@@ -97,11 +97,9 @@ export class SpaceplaneElement extends Element {
     if (this.runTimer) {
       this.ctx.drawImage(this.imgFire, 0, 0, this.width, this.height)
     } else {
-      this.ctx.save()
-      this.ctx.translate(-10, 0)
       this.ctx.drawImage(this.img, 0, 0, this.width, this.height)
-      this.ctx.restore()
     }
+    this.ctx.translate(5, 0)
     this.ctx.textBaseline = 'bottom'
     this.ctx.textAlign = 'center'
     this.ctx.fillStyle = 'white'
@@ -131,6 +129,7 @@ export class SpaceplaneElement extends Element {
       }
       if (this.realSpeed <= 0) {
         this.stop()
+        return
       }
       if (index++ % this.framePersecond === 0) {
         this.emit('run.step')
@@ -160,6 +159,7 @@ export class SpaceplaneElement extends Element {
   clearRunTimer() {
     if (this.runTimer) {
       clearInterval(this.runTimer)
+      this.clearAnimate()
       this.runTimer = null
     }
   }

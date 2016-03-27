@@ -1,5 +1,5 @@
 import {Mediator} from './medium'
-import {Spaceplane} from './spaceplane'
+import {Spaceship} from './spaceship'
 import {log} from './utils'
 import $ from 'jquery'
 import {Sender, Accepter} from './message.js'
@@ -31,7 +31,7 @@ function launchCenter(planet, accepter) {
     if (msg.type === 0) {
       log('发射中心接受命令', msg, 'blue')
       var id = msg.id
-      var spaceplane = new Spaceplane(id, {accepter})
+      var spaceplane = new Spaceship(id, {accepter})
       spaceplane.launch(planet, id * 50 + 30)
     }
   })

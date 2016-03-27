@@ -1,5 +1,5 @@
 import {BUS} from './medium'
-import {Spaceplane} from './spaceplane'
+import {Spaceship} from './spaceship'
 import {log, map} from './utils'
 import $ from 'jquery'
 import {Sender, Accepter, senderAdapter, acceptAdapter} from './message.js'
@@ -90,7 +90,7 @@ function launchCenter(planet, sender, accepter) {
       var powerType = powerTable[msg.powerType]
       var energyType = energyTable[msg.energyType]
 
-      var spaceplane = new Spaceplane(id, {
+      var spaceplane = new Spaceship(id, {
         sender,
         accepter,
         speed: powerType.speed,

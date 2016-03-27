@@ -5,7 +5,7 @@ import $ from 'jquery'
 /**
  * 航天飞船
  */
-export class Spaceplane {
+export class Spaceship {
   runTimer = null
   powerTimer = null
   framePersecond = 10 // 每秒运行N帧
