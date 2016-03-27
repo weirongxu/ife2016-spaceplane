@@ -26,7 +26,8 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  @extend %row;
+  font-size: 14px;
+  user-select: none;
 }
 
 #canvas {
@@ -34,7 +35,6 @@ body {
   background-image: url(../imgs/galaxy.jpg);
   background-size: cover;
   position: relative;
-  user-select: none;
   display: block;
   div {
     box-sizing: border-box;

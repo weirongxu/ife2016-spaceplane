@@ -2,7 +2,7 @@
   "name": "ife2016-spaceplane",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --host='0.0.0.0' --devtool='inline-source-map' --progress --colors --inline --hot",
+    "dev": "webpack-dev-server --devtool='inline-source-map' --progress --colors --inline --hot",
     "lint": "eslint src",
     "deploy": "npm run build && gh-pages -d build",
     "build": "rm -rf build && NODE_ENV='production' webpack --optimize-minimize && cp index.html build/index.html"
