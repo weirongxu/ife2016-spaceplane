@@ -12,6 +12,10 @@ export class PlanetElement extends Element {
     this.img.src = planetImgUrl
   }
 
+  moveToCenter() {
+    this.moveTo(this.world.width/2, this.world.height/2, this.r, 500) // 星球居中
+  }
+
   draw() {
     this.ctx.translate(-this.width/2, -this.height/2)
     this.ctx.drawImage(this.img, 0, 0, this.width, this.height)
@@ -33,6 +37,11 @@ export class SatelliteElement extends PlanetElement {
 
     this.img = new Image()
     this.img.src = satelliteImgUrl
+
+    this.planet.on('move', (pos) => {
+      this.clearAnimate()
+      this.moveTo(pos.x, pos.y, this.r)
+    })
   }
 
   draw() {
@@ -88,6 +97,11 @@ export class SpaceplaneElement extends Element {
     this.img.src = spaceshipImgUrl
     this.imgFire = new Image()
     this.imgFire.src = spaceshipFireImgUrl
+
+    this.planet.on('move', (pos) => {
+      this.clearAnimate()
+      this.moveTo(pos.x, pos.y, this.r)
+    })
   }
 
   draw() {

@@ -1,15 +1,16 @@
 import {map} from './utils'
 import {EventEmitter} from './utils'
+import $ from 'jquery'
 
-export class World {
+export class World extends EventEmitter {
   elements = {}
 
   constructor(viewport, canvas) {
+    super()
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
     this.viewport = viewport
-    this.canvas.width = this.width = viewport.clientWidth
-    this.canvas.height = this.height = viewport.clientHeight
+    this.resize()
   }
 
   has(element) {
@@ -57,6 +58,12 @@ export class World {
       this.ctx.restore()
     })
   }
+
+  resize() {
+    this.canvas.width = this.width = this.viewport.clientWidth
+    this.canvas.height = this.height = this.viewport.clientHeight
+    this.emit('resize')
+  }
 }
 
 export class Element extends EventEmitter {
@@ -100,13 +107,15 @@ export class Element extends EventEmitter {
   moveTo(x, y, r=this.r, time=0) {
     if (time) {
       this.clearAnimate()
+      this.emit('move', {x: x, y: y, r: r, time: time})
       var count = Math.ceil(time / 30)
       var perTime = time / count
       var diffX = (x - this.x) / count
       var diffY = (y - this.y) / count
       var diffR = (r - this.r) / count
-      for (var i=0; i < count; ++i) {
+      for (var i=1; i <= count; ++i) {
         (() => {
+          var _i = i
           var _x = this.x + i * diffX
           var _y = this.y + i * diffY
           var _r = this.r + i * diffR
@@ -115,6 +124,8 @@ export class Element extends EventEmitter {
             this.x = _x
             this.y = _y
             this.r = _r
+            if (_i === count)
+              this.emit('moved', {x: x, y: y, r: r, time: time})
           }, perTime * i))
         })()
       }
