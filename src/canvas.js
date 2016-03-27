@@ -21,7 +21,6 @@ export class World {
       element.world = this
       element.ctx = this.ctx
       this.elements[element.id] = element
-      // this.$dom.prepend(element.DOM)
     }
   }
 
@@ -30,7 +29,6 @@ export class World {
       element.world = this
       element.ctx = this.ctx
       this.elements[element.id] = element
-      // this.$dom.append(element.DOM)
     }
   }
 
