@@ -39,9 +39,7 @@ export class World extends EventEmitter {
 
   run() {
     this.render()
-    setTimeout(() => {
-      this.fresh()
-    }, 30)
+    this.fresh()
   }
 
   fresh() {
