@@ -2,10 +2,13 @@
   "name": "ife2016-spaceplane",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --devtool='inline-source-map' --progress --colors --inline --hot",
+    "dev": "webpack-dev-server -d --inline --hot --output-public-path='./assets/'",
     "lint": "eslint src",
     "deploy": "npm run build && gh-pages -d build",
-    "build": "rm -rf build && NODE_ENV='production' webpack --optimize-minimize && cp index.html build/index.html"
+    "build:clean": "rm -rf build",
+    "build:webpack": "webpack -p --output-public-path='./assets/'",
+    "build:html": "cp index.html build/index.html",
+    "build": "npm run build:clean && npm run build:webpack && npm run build:html"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.4",

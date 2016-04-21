@@ -1,4 +1,3 @@
-var isProduction = process.env.NODE_ENV === 'production'
 var path = require('path')
 var autoprefixer = require('autoprefixer')
 
@@ -8,7 +7,6 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: './build/assets/',
-    publicPath: isProduction ? './assets/' : '/assets/',
   },
   module: {
     loaders: [
