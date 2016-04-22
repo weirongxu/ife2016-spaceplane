@@ -2,7 +2,7 @@
   "name": "ife2016-spaceplane",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server -d --inline --hot --output-public-path='./assets/'",
+    "dev": "webpack-dev-server -d --inline --hot --output-public-path='/assets/'",
     "lint": "eslint src",
     "deploy": "npm run build && gh-pages -d build",
     "build:clean": "rm -rf build",
