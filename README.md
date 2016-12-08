@@ -2,9 +2,9 @@
 
 ## 在线演示
 
+* [第一阶段](http://weirongxu.github.io/ife2016-spaceplane/#center1)  
+* [第三阶段](http://weirongxu.github.io/ife2016-spaceplane/#center3)  
 ![预览图片](https://cloud.githubusercontent.com/assets/1709861/21019723/8015982a-bdac-11e6-84d3-a7046118862c.png)
-[第一阶段](http://weirongxu.github.io/ife2016-spaceplane/#center1)
-[第三阶段](http://weirongxu.github.io/ife2016-spaceplane/#center3)
 
 ## 任务内容
 
